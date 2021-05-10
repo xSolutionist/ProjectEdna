@@ -1,0 +1,133 @@
+﻿@page
+@model ProjectEdna.Pages.Admin.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ImageModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.Project)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.Project)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.ProjectId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.ProjectId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.TestID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.TestID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.Longitude)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.Longitude)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.Latitude)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.Latitude)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.Altitude)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.Altitude)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.Material)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.Material)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.AmountOfTracksCollected)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.AmountOfTracksCollected)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.Temperature)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.Temperature)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.Snow)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.Snow)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.AnimalKind)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.AnimalKind)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.Gender)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.Gender)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.TrackAge)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.TrackAge)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.CollectedBy)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.CollectedBy)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.Comment)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.Comment)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.UserId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.UserId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.Image)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.Image)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageModel.QRCode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageModel.QRCode)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.ImageModel.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

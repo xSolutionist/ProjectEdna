@@ -1,0 +1,27 @@
+﻿/* Set the size of the div element that contains the map */
+/*#map {
+    height: 21rem;
+     The height is 400 pixels 
+    width: 33%;
+     The width is the width of the web page 
+}
+*/
+
+html,
+body {
+    height: 100%;
+}
+
+#map {
+    height: 100%;
+}
+
+#whitetext{
+
+    color: white;
+}
+
+.hero{
+    padding-top: 8rem;
+    padding-bottom: 0;
+}

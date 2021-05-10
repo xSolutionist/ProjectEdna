@@ -1,0 +1,109 @@
+@page
+@model LocationModel
+@{
+    ViewData["Title"] = "Current Location";
+}
+
+<div id="page-top">
+    <!-- Hero-->
+    <div class="hero">
+        <div class="container">
+            <div>
+                <span>Latitude: @Html.DisplayFor(m => Model.Latitude)</span>
+                <span>Longitude: @Html.DisplayFor(m => Model.Longitude)</span>
+                <span>Country: @Html.DisplayFor(m => Model.Country)</span>
+            </div>
+
+
+
+
+
+            @*Initialize and add the map*@
+            <script>
+                        function initMap() {
+                            const latLng = { lat: @Html.DisplayFor(m => Model.Latitude), lng: @Html.DisplayFor(m => Model.Longitude) };
+                            const map = new google.maps.Map(document.getElementById("map"), {
+                                zoom: 8,
+                                center: latLng,
+                            });
+                            const marker = new google.maps.Marker({
+                                position: latLng,
+                                map: map,
+                            });
+                        };
+            </script>
+
+
+            <div id="map"></div>
+
+
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByF9cwgDuXKELK-Yb2vEWQi4Fvi7TgVNc&callback=initMap&libraries=&v=weekly"
+                    async></script>
+
+
+
+
+
+
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+
+
+
+
+
+
+            <p>Click the button to get your coordinates.</p>
+
+            <button onclick="getLocation()">Try It</button>
+
+            <p id="demo"></p>
+
+            <div id="mapholder" class="map2"></div>
+
+
+
+            <script>
+                var x = document.getElementById("demo");
+
+                function getLocation() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(showPosition);
+                    } else {
+                        x.innerHTML = "Geolocation is not supported by this browser.";
+                    }
+                };
+
+                function showPosition(position) {
+                    x.innerHTML = "Latitude: " + position.coords.latitude +
+                        "<br>Longitude: " + position.coords.longitude;
+
+                    var latlon = position.coords.latitude + "," + position.coords.longitude;
+
+                    var img_url = "https://maps.googleapis.com/maps/api/staticmap?center=" + latlon +"&zoom=14&size=1500x400&sensor=false&key=AIzaSyByF9cwgDuXKELK-Yb2vEWQi4Fvi7TgVNc";
+                   
+
+                    document.getElementById("mapholder").innerHTML = "<img src='" + img_url + "'>";
+             
+
+
+                };
+
+
+
+            </script>
+
+
+
+
+
+
+        </div>
+    </div>
+</div>

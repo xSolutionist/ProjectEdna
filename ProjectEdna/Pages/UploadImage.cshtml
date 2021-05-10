@@ -1,0 +1,332 @@
+﻿@page
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@model ProjectEdna.Pages.UploadImageModel
+@{
+    ViewBag.Lat = Model.GPSLatitude;
+    ViewBag.Long = Model.GPSLongitude;
+    ViewBag.Date = Model.GPSDate;
+    var user = await UserManager.GetUserAsync(User);
+}
+@using ProjectEdna.Model
+
+
+
+
+<div id="page-top">
+    <!-- Hero-->
+    <div class="hero">
+        <div class="container">
+
+
+
+
+            <form method="post" asp-page="UploadImagePhoto" enctype="multipart/form-data">
+
+
+
+
+                <input hidden asp-for="ImageModel.TestID" />
+                <input hidden asp-for="ImageModel.UserId" />
+
+                <div asp-validation-summary="All" class="text-danger">
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.ImageFileName))
+                {
+                    <div class="form-group row p-2 m-3 offset-4">
+                        <div class="form-group col-md-4">
+                            <img class="imageThumbnail" src="~/images/@Model.ImageFileName" asp-append-version="true" style="width: 21rem; " />
+
+                        </div>
+                        <div class="form-group col-md-4">
+
+                            <img class="imageThumbnail" src="~/QRimages/@Model.ImageFileName" asp-append-version="true" style="width: 21rem; " />
+                        </div>
+
+                        <div class="form-group col-md-4" id="map"></div>
+                    </div>
+                }
+
+                @if (string.IsNullOrEmpty(Model.ImageFileName))
+                {
+                    <div class="form-group row col-sm-4 offset-4">
+                        <img class="imageThumbnail" id="blah" src="#" asp-append-version="true" alt="Din bild" style="width: 42rem; height: 37rem" />
+                    </div>
+                }
+
+
+                @if (Model.DataExtracted == false)
+                {
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Bild</label>
+                        <div class="col-sm-10">
+                            <div class="custom-file">
+                                <input type="file" name="photo" accept="image/*" class="custom-file-input form-control" id="fileName">
+                                <label class="custom-file-label">Klicka här för att byta bild</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary" asp-page-handler="Photo">Extract Data</button>
+
+                        </div>
+                    </div>
+                }
+            </form>
+
+
+            @{
+                if (Model.DataExtracted == true)
+                {
+                    <form method="post" asp-page="UploadImage" enctype="multipart/form-data" asp-page-handler="Form">
+
+
+
+                        <div class="form-group row">
+                            <label asp-for="ImageModel.Date" class="col-sm-2 col-form-label">
+                            </label>
+                            <div class="col-sm-10">
+                                <input asp-for="ImageModel.Date" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}">
+                                <span asp-validation-for="ImageModel.Date" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="ImageModel.Project" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="ImageModel.Project" class="form-control" placeholder="Projekt Namn">
+                                <span asp-validation-for="ImageModel.Project" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="ImageModel.TestID" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="ImageModel.TestID" class="form-control" placeholder="SL 11">
+                                <span asp-validation-for="ImageModel.TestID" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="form-group row">
+                            <label asp-for="ImageModel.Latitude" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="ImageModel.Latitude" class="form-control" placeholder="Kordinat Lat">
+                                <span asp-validation-for="ImageModel.Latitude" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="ImageModel.Longitude" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="ImageModel.Longitude" class="form-control" placeholder="Kordinat Long">
+                                <span asp-validation-for="ImageModel.Longitude" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="ImageModel.Temperature" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="ImageModel.Temperature" class="form-control" placeholder="2.5">
+                                <span asp-validation-for="ImageModel.Temperature" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        <div class="form-group row">
+                            <label asp-for="ImageModel.Material" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="ImageModel.Material" class="form-control" placeholder="Snö/Lera etc">
+                                <span asp-validation-for="ImageModel.Material" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="ImageModel.AmountOfTracksCollected" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="ImageModel.AmountOfTracksCollected" class="form-control" placeholder="Antal">
+                                <span asp-validation-for="ImageModel.AmountOfTracksCollected" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="ImageModel.TrackAge" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="ImageModel.TrackAge" class="form-control" placeholder="36h">
+                                <span asp-validation-for="ImageModel.TrackAge" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label asp-for="ImageModel.Snow" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <select asp-for="ImageModel.Snow" class="custom-select mr-sm-2"
+                                        asp-items="Html.GetEnumSelectList<Snow>()">
+                                    <option value="">Välj ett Alternativ</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="ImageModel.AnimalKind" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="ImageModel.AnimalKind" class="form-control" placeholder="Uggla Räv etc">
+                                <span asp-validation-for="ImageModel.AnimalKind" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="ImageModel.Gender" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <select asp-for="ImageModel.Gender" class="custom-select mr-sm-2"
+                                        asp-items="Html.GetEnumSelectList<Gender>()">
+                                    <option value="">Välj ett Alternativ</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="ImageModel.CollectedBy" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="ImageModel.CollectedBy" class="form-control" placeholder="Insamlad av">
+                                <span asp-validation-for="ImageModel.CollectedBy" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="ImageModel.Comment" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <textarea asp-for="ImageModel.Comment" class="form-control" placeholder="Kommentar" rows="4"></textarea>
+                                <span asp-validation-for="ImageModel.Comment" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div hidden class="form-group row">
+                            <label asp-for="ImageModel.Image" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="ImageModel.Image" class="form-control">
+                                <span asp-validation-for="ImageModel.Image" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div hidden class="form-group row">
+                            <label asp-for="ImageModel.QRCode" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="ImageModel.QRCode" class="form-control">
+                                <span asp-validation-for="ImageModel.QRCode" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">Save data</button>
+                                <a asp-page="/Employees/Index" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+
+
+
+                        <script>
+                        // Initialize and add the map
+                        function initMap() {
+                            const latLng = { lat: @Html.Raw(Json.Serialize(ViewBag.Lat)), lng: @Html.Raw(Json.Serialize(ViewBag.Long)) };
+                            const map = new google.maps.Map(document.getElementById("map"), {
+                                zoom: 8,
+                                center: latLng,
+                            });
+                            const marker = new google.maps.Marker({
+                                position: latLng,
+                                map: map,
+                            });
+                        };
+                        </script>
+
+                        <!--The div element for the map -->
+                        <div id="map"></div>
+
+                        <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByF9cwgDuXKELK-Yb2vEWQi4Fvi7TgVNc&callback=initMap&libraries=&v=weekly"
+                                async></script>
+
+
+                    </form>
+
+                }
+            }
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#fileName').on('change', function () {
+            //get the file name
+            var fileName = $(this).val();
+            //replace the "Choose a file" label
+            $(this).next('.custom-file-label').html(fileName);
+        })
+    })
+
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+
+
+
+
+        }
+
+
+
+
+    }
+
+    $("#fileName").change(function () {
+        readURL(this);
+    });
+
+
+
+
+</script>
+

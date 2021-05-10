@@ -1,0 +1,124 @@
+﻿@page
+@model ProjectEdna.Pages.Admin.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ImageModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ImageModel.Project" class="control-label"></label>
+                <input asp-for="ImageModel.Project" class="form-control" />
+                <span asp-validation-for="ImageModel.Project" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.ProjectId" class="control-label"></label>
+                <input asp-for="ImageModel.ProjectId" class="form-control" />
+                <span asp-validation-for="ImageModel.ProjectId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.Date" class="control-label"></label>
+                <input asp-for="ImageModel.Date" class="form-control" />
+                <span asp-validation-for="ImageModel.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.TestID" class="control-label"></label>
+                <input asp-for="ImageModel.TestID" class="form-control" />
+                <span asp-validation-for="ImageModel.TestID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.Longitude" class="control-label"></label>
+                <input asp-for="ImageModel.Longitude" class="form-control" />
+                <span asp-validation-for="ImageModel.Longitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.Latitude" class="control-label"></label>
+                <input asp-for="ImageModel.Latitude" class="form-control" />
+                <span asp-validation-for="ImageModel.Latitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.Altitude" class="control-label"></label>
+                <input asp-for="ImageModel.Altitude" class="form-control" />
+                <span asp-validation-for="ImageModel.Altitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.Material" class="control-label"></label>
+                <input asp-for="ImageModel.Material" class="form-control" />
+                <span asp-validation-for="ImageModel.Material" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.AmountOfTracksCollected" class="control-label"></label>
+                <input asp-for="ImageModel.AmountOfTracksCollected" class="form-control" />
+                <span asp-validation-for="ImageModel.AmountOfTracksCollected" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.Temperature" class="control-label"></label>
+                <input asp-for="ImageModel.Temperature" class="form-control" />
+                <span asp-validation-for="ImageModel.Temperature" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.Snow" class="control-label"></label>
+                <input asp-for="ImageModel.Snow" class="form-control" />
+                <span asp-validation-for="ImageModel.Snow" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.AnimalKind" class="control-label"></label>
+                <input asp-for="ImageModel.AnimalKind" class="form-control" />
+                <span asp-validation-for="ImageModel.AnimalKind" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.Gender" class="control-label"></label>
+                <input asp-for="ImageModel.Gender" class="form-control" />
+                <span asp-validation-for="ImageModel.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.TrackAge" class="control-label"></label>
+                <input asp-for="ImageModel.TrackAge" class="form-control" />
+                <span asp-validation-for="ImageModel.TrackAge" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.CollectedBy" class="control-label"></label>
+                <input asp-for="ImageModel.CollectedBy" class="form-control" />
+                <span asp-validation-for="ImageModel.CollectedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.Comment" class="control-label"></label>
+                <input asp-for="ImageModel.Comment" class="form-control" />
+                <span asp-validation-for="ImageModel.Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.UserId" class="control-label"></label>
+                <input asp-for="ImageModel.UserId" class="form-control" />
+                <span asp-validation-for="ImageModel.UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.Image" class="control-label"></label>
+                <input asp-for="ImageModel.Image" class="form-control" />
+                <span asp-validation-for="ImageModel.Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageModel.QRCode" class="control-label"></label>
+                <input asp-for="ImageModel.QRCode" class="form-control" />
+                <span asp-validation-for="ImageModel.QRCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

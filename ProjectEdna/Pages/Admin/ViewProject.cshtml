@@ -1,0 +1,147 @@
+﻿@page
+@model ProjectEdna.Pages.Admin.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="hero">
+    <h1>Index</h1>
+    <a asp-page="./AdminIndex" >Back</a>
+
+
+
+    <table class="table text-white">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].Project)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].ProjectId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].TestID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].Longitude)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].Latitude)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].Altitude)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].Material)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].AmountOfTracksCollected)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].Temperature)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].Snow)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].AnimalKind)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].Gender)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].TrackAge)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].CollectedBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].Comment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].UserId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].Image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageModel[0].QRCode)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ImageModel)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Project)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TestID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Longitude)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Latitude)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Altitude)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Material)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AmountOfTracksCollected)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Temperature)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Snow)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AnimalKind)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrackAge)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CollectedBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    <td>
+                        <img src="~/images/@item.Image" style="width: 8rem; height: 7rem" />
+                    </td>
+                    <td>
+                        <img src="~/QRimages/@item.QRCode" style="width: 8rem; height: 7rem" />
+
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

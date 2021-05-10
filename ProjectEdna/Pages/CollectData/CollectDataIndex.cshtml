@@ -1,0 +1,253 @@
+﻿@page
+@model ProjectEdna.Pages.CollectData.CollectDataIndexModel
+@{
+}
+    
+
+<div class="hero">
+    <div class="container">
+
+        <video id="preview" class="w-100"></video>
+
+        <div id="head">
+            <h4 style="color:red;"> Scan your QR code. </h4>
+        </div>
+
+
+        <div class="row justify-content-center mb-2">
+            <button class="btn btn-secondary" id="snap" onclick="snap()">Snap Photo</button>
+        </div>
+        <div>
+
+        </div>
+
+        <canvas id="canvas" class="w-100" style="transform:rotateY(180deg); display: none;"></canvas>
+      
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+
+        <div class="form-group row" hidden>
+            <label asp-for="ImageModel.QRCode" class="col-sm-2 col-form-label">
+            </label>
+            <div class="col-sm-10">
+                <input id="QR" asp-for="ImageModel.QRCode" class="form-control">
+                <span asp-validation-for="ImageModel.QRCode" class="text-danger"></span>
+            </div>
+        </div>
+
+
+        <div class="form-group row" hidden>
+            <label asp-for="ImageModel.Latitude" class="col-sm-2 col-form-label">
+            </label>
+            <div class="col-sm-10">
+                <input id="Lat" asp-for="ImageModel.Latitude" class="form-control" name="Lat">
+                <span asp-validation-for="ImageModel.Latitude" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row" hidden>
+            <label asp-for="ImageModel.Longitude" class="col-sm-2 col-form-label">
+            </label>
+            <div class="col-sm-10">
+                <input id="Long" asp-for="ImageModel.Longitude" class="form-control" name="Long">
+                <span asp-validation-for="ImageModel.Longitude" class="text-danger"></span>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="form-group row justify-content-center">
+            <div class="col-md-6">
+                <input class="form-control" id="imageInput" name="imageBase64" type="text" hidden>
+            </div>
+        </div>
+
+        <div class="form-group row justify-content-center">
+            <div class="col-sm-6">
+                <button type="submit" class="btn btn-primary" asp-page-handler="save">Save</button>
+                <a class="btn btn-primary" asp-page="/CollectData/CollectDataIndex">Cancel</a>
+            </div>
+        </div>
+    </form>
+
+    <div id="map"></div>
+
+</div>
+<script type="text/javascript" src="processor.js"></script>
+<script type="text/javascript">
+
+    const scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+
+    scanner.addListener('scan', function (content) {
+        document.getElementById("QR").value = content;
+        myfunction(); 
+
+    });
+
+
+    function myfunction() {
+
+        if (document.getElementById("QR").value.length >= 7) {
+
+            document.getElementById("head").innerHTML = "<h4> QR code was succesfully scanned</h4>"
+            document.getElementById("head").style.color = 'green';
+        }
+    }
+
+    const processor = {};
+
+    processor.doLoad = function doLoad() {
+        const video = document.getElementById('video');
+        this.video = video;
+
+        this.c1 = document.getElementById('c1');
+        this.ctx1 = this.c1.getContext('2d');
+
+        this.c2 = document.getElementById('c2');
+        this.ctx2 = this.c2.getContext('2d');
+
+        video.addEventListener('play', () => {
+            this.width = video.videoWidth / 2;
+            this.height = video.videoHeight / 2;
+            this.timerCallback();
+        }, false);
+    };
+
+
+    processor.timerCallback = function timerCallback() {
+        if (this.video.paused || this.video.ended) {
+            return;
+        }
+        this.computeFrame();
+        setTimeout(() => {
+            this.timerCallback();
+        }, 0);
+    };
+
+    processor.computeFrame = function computeFrame() {
+        this.ctx1.drawImage(this.video, 0, 0, this.width, this.height);
+        const frame = this.ctx1.getImageData(0, 0, this.width, this.height);
+        const length = frame.data.length;
+
+        for (let i = 0; i < length; i += 4) {
+            const red = data[i + 0];
+            const green = data[i + 1];
+            const blue = data[i + 2];
+            if (green > 100 && red > 100 && blue < 43) {
+                data[i + 3] = 0;
+            }
+        }
+        this.ctx2.putImageData(frame, 0, 0);
+    };
+
+
+
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+            scanner.start(cameras[0]);
+        } else {
+            console.error('No cameras found.');
+        }
+    }).catch(function (e) {
+        console.error(e);
+    });
+
+
+
+    let image;
+    let w, h, ratio;
+    const imageInput = document.getElementById('imageInput');
+    const video = document.getElementById('preview');
+    const canvas = document.getElementById('canvas');
+
+    const context = canvas.getContext('2d');
+
+    video.addEventListener('loadedmetadata', function () {
+        ratio = video.videoWidth / video.videoHeight;
+        w = video.videoWidth;
+        h = parseInt(w / ratio, 10);
+        canvas.width = w;
+        canvas.height = h;
+    }, false);
+
+    function snap() {
+        context.fillRect(0, 0, w, h);
+
+
+        context.drawImage(video, 0, 0, w, h);
+
+
+        canvas.style.display = 'inline';
+
+
+        //// Experiment
+        //console.log(video.srcObject)
+
+        //let imageCapture = new ImageCapture(video.srcObject.getVideoTracks()[0])
+
+        //imageCapture.grabFrame()
+        //    .then(imageBitmap => {
+        //        console.log(imageBitmap);
+        //    })
+        //    .catch(error => console.log(error));
+
+        //imageCapture.takePhoto()
+        //    .then(blob => {
+        //        createImageBitmap(blob)
+        //        console.log(blob);
+        //    })
+        //    .catch(error => console.log(error));
+        //// Experiment
+
+
+        image = canvas.toDataURL('image/jpeg', 1.0);
+
+        imageInput.value = image;
+
+
+
+
+
+    }
+
+    // Geo
+
+
+</script>
+
+
+<script>
+
+    
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+
+            };
+
+            document.getElementById("Lat").value = position.coords.latitude.toString()  //.replace(".", ",")
+            document.getElementById("Long").value = position.coords.longitude.toString()   //.replace(".", ",")
+
+
+
+        
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+    }
+
+
+
+
+
+
+
+
+</script>

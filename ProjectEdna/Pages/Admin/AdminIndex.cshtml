@@ -1,0 +1,58 @@
+﻿@page
+@model ProjectEdna.Pages.Admin.AdminIndexModel
+@{
+    ViewData["Title"] = "AdminIndex";
+}
+
+<div class="hero" id="whitetext">
+
+    
+   
+
+    <table class="table text-white">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProjectModel[0].ProjectName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProjectModel[0].ProjectCreated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProjectModel[0].ProjectDataSize)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProjectModel[0].ProjectCreator)
+                </th>
+            
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ProjectModel)
+            {
+                <tr>
+                    <td>
+                        <a asp-page="./ViewProject" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.ProjectName)</a>
+                    </td>
+                    <td>
+                        @item.ProjectCreated.Date.ToShortDateString()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectDataSize)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectCreator)
+                    </td>
+
+                    <td>
+                        @*<a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

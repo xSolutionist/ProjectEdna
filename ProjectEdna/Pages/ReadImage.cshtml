@@ -1,0 +1,81 @@
+﻿@page
+@model ProjectEdna.Pages.ReadImageModel
+@{
+
+
+
+
+
+
+}
+
+
+<div class="hero">
+    
+    <h3>Scan your QRCODE</h3>
+    <div class="container">
+
+
+
+        <video id="preview">
+
+        </video>
+
+        
+
+        <form id="QRFORM" method="post" asp-page="ReadImage" enctype="multipart/form-data" asp-page-handler="QR" asp-route-id=" ">
+
+            <div class="form-group row">
+                <label asp-for="ImageModel.QRCode" class="col-sm-2 col-form-label">
+                </label>
+                <div class="col-sm-10">
+                    <input id="QR" asp-for="ImageModel.QRCode" class="form-control">
+                    <span asp-validation-for="ImageModel.QRCode" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Save data</button>
+                    <a class="btn btn-primary">Cancel</a>                                                                      
+                </div>
+            </div>
+
+
+        </form>
+
+    </div>
+
+
+</div>
+
+
+<script type="text/javascript">
+    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+    scanner.addListener('scan', function (content) {
+
+        document.getElementById("QR").value = content;         /* behövs eventuellt läggas till .jpg här*/
+
+
+
+
+    });
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+            scanner.start(cameras[0]);
+        } else {
+            console.error('No cameras found.');
+        }
+    }).catch(function (e) {
+        console.error(e);
+    });
+
+
+    //if (document.getElementById("QR").value.length > 10) {
+                                                                                        //nån snilleblixt för att slippa knapp 
+    //    document.getElementById("QRFORM").submit();
+    //}
+
+
+</script>

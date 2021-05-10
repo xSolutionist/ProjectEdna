@@ -1,0 +1,49 @@
+﻿@page
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model ProjectEdna.Pages.Admin.CreateProjectModel
+@{
+
+    var user = await UserManager.GetUserAsync(User);
+
+
+}
+
+<div class="hero">
+
+    <h1>Skapa Projekt</h1> <br />
+
+    <div class="container">
+        <form method="post" asp-page="CreateProject" enctype="multipart/form-data" asp-page-handler="Form">
+           
+
+            <div class="form-group row">
+                <label asp-for="ProjectModel.ProjectName" class="col-sm-2 col-form-label">
+                </label>
+                <div class="col-sm-10">
+                    <input asp-for="ProjectModel.ProjectName" class="form-control" asp-format=" ">
+                    <span asp-validation-for="ProjectModel.ProjectName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="ProjectModel.ProjectDataSize" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="ProjectModel.ProjectDataSize" class="form-control" placeholder="Antal">
+                    <span asp-validation-for="ProjectModel.ProjectDataSize" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Skapa</button>
+                    <a asp-page="/Admin/AdminIndex" class="btn btn-primary">Cancel</a>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+  
+</div>

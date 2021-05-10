@@ -1,0 +1,122 @@
+﻿@page
+@model ProjectEdna.Pages.UploadModel
+@{
+}
+
+
+
+
+
+<div class="hero">
+
+    <h3>Upload your picture</h3>
+
+
+
+    <div class="container">
+
+        <form method="post" asp-page="UploadImagePhoto" enctype="multipart/form-data">
+
+
+            
+            
+            
+            
+            <div class="form-group row p-2 m-3 offset-4">
+
+                    <div class="form-group row col-sm-4 offset-4">
+                        <img class="imageThumbnail" id="blah" src="#" asp-append-version="true" alt="Din bild" style="width: 21rem; " />
+                    </div>
+                <div class="form-group col-md-4">
+
+                    <img class="imageThumbnail" src="~/QRimages/@Model.QRFileName" asp-append-version="true" style="width: 21rem; " />
+                </div>
+
+            </div>
+
+
+
+
+
+
+            <div class="form-group row">
+
+                <label asp-for="ImageModel.QRCode" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="ImageModel.QRCode" class="form-control" name="QR">
+                    <span asp-validation-for="ImageModel.QRCode" class="text-danger"></span>
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Bild</label>
+                <div class="col-sm-10">
+                    <div class="custom-file">
+                        <input type="file" name="photo" accept="image/*" class="custom-file-input form-control" id="fileName">
+                        <label class="custom-file-label">Klicka här för att byta bild</label>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary" asp-page-handler="Photo">Extract Data</button>
+
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#fileName').on('change', function () {
+            //get the file name
+            var fileName = $(this).val();
+            //replace the "Choose a file" label
+            $(this).next('.custom-file-label').html(fileName);
+        })
+    })
+
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+
+
+
+
+        }
+
+
+
+
+    }
+
+    $("#fileName").change(function () {
+        readURL(this);
+    });
+
+
+
+
+</script>
